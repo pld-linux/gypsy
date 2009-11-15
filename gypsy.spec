@@ -14,6 +14,7 @@ BuildRequires:	dbus-glib-devel
 BuildRequires:	glib2-devel
 BuildRequires:	gtk-doc
 BuildRequires:	libxslt
+BuildRequires:	pkgconfig
 Requires:	dbus
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
