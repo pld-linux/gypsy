@@ -1,6 +1,5 @@
 # TODO:
 # - --with-user= (not root!) - is nobody OK, or some more specific user required?
-# - gpsbt? (libgpsbt from Nokia?)
 Summary:	Gypsy - a GPS multiplexing daemon
 Summary(pl.UTF-8):	Gypsy - demon przełączający dostęp do GPS
 Name:		gypsy
@@ -38,6 +37,7 @@ naprzemienny dostęp do danych GPS z wielu źródeł.
 Summary:	Gypsy library
 Summary(pl.UTF-8):	Biblioteka gypsy
 Group:		Libraries
+Conflicts:	gypsy < 0.8
 
 %description libs
 Gypsy GPS multiplexing library.
