@@ -4,7 +4,7 @@ Summary:	Gypsy - a GPS multiplexing daemon
 Summary(pl.UTF-8):	Gypsy - demon przełączający dostęp do GPS
 Name:		gypsy
 Version:	0.9
-Release:	1
+Release:	2
 License:	LGPL v2+ (library), GPL v2+ (daemon)
 Group:		Daemons
 Source0:	http://gypsy.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -116,8 +116,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libexecdir}/gypsy-daemon
-/etc/dbus-1/system.d/Gypsy.conf
-/etc/gypsy.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus-1/system.d/Gypsy.conf
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/gypsy.conf
 %{_datadir}/dbus-1/system-services/org.freedesktop.Gypsy.service
 
 %files libs
