@@ -116,7 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libexecdir}/gypsy-daemon
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/dbus-1/system.d/Gypsy.conf
+%config(noreplace) %verify(not md5 mtime size) /etc/dbus-1/system.d/Gypsy.conf
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/gypsy.conf
 %{_datadir}/dbus-1/system-services/org.freedesktop.Gypsy.service
 
