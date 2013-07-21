@@ -4,7 +4,7 @@ Summary:	Gypsy - a GPS multiplexing daemon
 Summary(pl.UTF-8):	Gypsy - demon przełączający dostęp do GPS
 Name:		gypsy
 Version:	0.9
-Release:	2
+Release:	3
 License:	LGPL v2+ (library), GPL v2+ (daemon)
 Group:		Daemons
 Source0:	http://gypsy.freedesktop.org/releases/%{name}-%{version}.tar.gz
