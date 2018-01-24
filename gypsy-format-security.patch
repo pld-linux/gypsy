@@ -1,0 +1,108 @@
+diff -urp gypsy-0.9.orig/configure.ac gypsy-0.9/configure.ac
+--- gypsy-0.9.orig/configure.ac	2012-08-28 11:19:35.000000000 +0000
++++ gypsy-0.9/configure.ac	2018-01-24 22:03:34.263371167 +0000
+@@ -58,7 +58,7 @@ AC_MSG_RESULT([$with_user])
+ AS_AC_EXPAND(LIBEXECDIR, $libexecdir)
+ AS_AC_EXPAND(DAEMON_USER, $with_user)
+ 
+-CFLAGS="$CFLAGS -g -Wall -Werror -Wno-format"
++CFLAGS="$CFLAGS -g -Wall -Werror"
+ 
+ GTK_DOC_CHECK([1.6])
+ # TODO: add --with-xsltproc argument to override PATH
+diff -urp gypsy-0.9.orig/src/gypsy-client.c gypsy-0.9/src/gypsy-client.c
+--- gypsy-0.9.orig/src/gypsy-client.c	2011-12-06 12:59:36.000000000 +0000
++++ gypsy-0.9/src/gypsy-client.c	2018-01-24 22:19:58.972312474 +0000
+@@ -401,7 +401,7 @@ garmin_init (GIOChannel *channel)
+ 
+ 	if (status != G_IO_STATUS_NORMAL) {
+ 		GYPSY_NOTE (CLIENT, "GARMIN: Error writing \"Private Set Mode\" packet:\n%s", g_strerror (errno));
+-		g_set_error (&error, GYPSY_ERROR, errno, g_strerror (errno));
++		g_set_error_literal (&error, GYPSY_ERROR, errno, g_strerror (errno));
+ 		return FALSE;
+ 	}
+ 
+@@ -428,7 +428,7 @@ garmin_init (GIOChannel *channel)
+ 
+ 	if (status != G_IO_STATUS_NORMAL) {
+ 		GYPSY_NOTE (CLIENT, "GARMIN: Error writing \"Start PVT Transfer\" packet:\n%s", g_strerror (errno));
+-		g_set_error (&error, GYPSY_ERROR, errno, g_strerror (errno));
++		g_set_error_literal (&error, GYPSY_ERROR, errno, g_strerror (errno));
+ 		return FALSE;
+ 	}
+ 
+@@ -505,7 +505,7 @@ gypsy_client_set_start_options (GypsyCli
+ 			guint rate;
+ 
+ 			if (priv->channel != NULL) {
+-				g_set_error (error, GYPSY_ERROR, 0, "Device already started");
++				g_set_error_literal (error, GYPSY_ERROR, 0, "Device already started");
+ 				g_list_free (keys);
+ 				return FALSE;
+ 			}
+@@ -593,7 +593,7 @@ gypsy_client_start (GypsyClient *client,
+ 
+ 		if (priv->fd == -1) {
+ 			g_warning ("Error opening device %s: %s", priv->device_path, g_strerror (errno));
+-			g_set_error (error, GYPSY_ERROR, errno, g_strerror (errno));
++			g_set_error_literal (error, GYPSY_ERROR, errno, g_strerror (errno));
+ 			return FALSE;
+ 		}
+ 
+@@ -602,7 +602,7 @@ gypsy_client_start (GypsyClient *client,
+ 
+ 			if (tcgetattr (priv->fd, &term) < 0) {
+ 				g_warning ("Error getting term: %s", g_strerror (errno));
+-				g_set_error (error, GYPSY_ERROR, errno, g_strerror (errno));
++				g_set_error_literal (error, GYPSY_ERROR, errno, g_strerror (errno));
+ 				return FALSE;
+ 			}
+ 
+@@ -612,7 +612,7 @@ gypsy_client_start (GypsyClient *client,
+ 
+ 			if (tcsetattr (priv->fd, TCSAFLUSH, &term) < 0) {
+ 				g_warning ("Error setting term: %s", g_strerror (errno));
+-				g_set_error (error, GYPSY_ERROR, errno, g_strerror (errno));
++				g_set_error_literal (error, GYPSY_ERROR, errno, g_strerror (errno));
+ 				return FALSE;
+ 			}
+ 		}
+@@ -653,7 +653,7 @@ gypsy_client_start (GypsyClient *client,
+ 
+ 	if (status != G_IO_STATUS_NORMAL) {
+ 		g_warning ("Error setting flags: %s", g_strerror (errno));
+-		g_set_error (error, GYPSY_ERROR, errno, g_strerror (errno));
++		g_set_error_literal (error, GYPSY_ERROR, errno, g_strerror (errno));
+ 		return FALSE;
+ 	}
+ 
+@@ -662,7 +662,7 @@ gypsy_client_start (GypsyClient *client,
+ 
+ 	if (status != G_IO_STATUS_NORMAL) {
+ 		g_warning ("Error setting encoding: %s", g_strerror (errno));
+-		g_set_error (error, GYPSY_ERROR, errno, g_strerror (errno));
++		g_set_error_literal (error, GYPSY_ERROR, errno, g_strerror (errno));
+ 		return FALSE;
+ 	}
+ 
+@@ -692,7 +692,7 @@ gypsy_client_start (GypsyClient *client,
+ 			}
+ 
+ 			g_warning ("Error connecting: %s", g_strerror (errno));
+-			g_set_error (error, GYPSY_ERROR, errno, g_strerror (errno));
++			g_set_error_literal (error, GYPSY_ERROR, errno, g_strerror (errno));
+ 
+ 			g_source_remove (priv->error_id);
+ 			priv->error_id = 0;
+diff -urp gypsy-0.9.orig/src/main.c gypsy-0.9/src/main.c
+--- gypsy-0.9.orig/src/main.c	2011-10-13 15:44:12.000000000 +0000
++++ gypsy-0.9/src/main.c	2018-01-24 22:09:15.024350856 +0000
+@@ -156,7 +156,7 @@ main (int    argc,
+ #if GLIB_CHECK_VERSION(2, 14, 0)
+ 		char *help;
+ 		help = g_option_context_get_help (context, TRUE, NULL);
+-		g_print (help);
++		g_print ("%s", help);
+ 		g_free (help);
+ #else
+ 		g_printerr ("Cannot parse arguments: %s\n", error->message);
