@@ -22,6 +22,7 @@ BuildRequires:	dbus-glib-devel >= 0.60
 BuildRequires:	glib2-devel >= 1:2.18
 BuildRequires:	gtk-doc >= 1.6
 BuildRequires:	libtool
+BuildRequires:	libgudev-devel >= 1.0
 BuildRequires:	libxslt-progs
 BuildRequires:	pkgconfig
 Requires:	%{name}-libs = %{version}-%{release}
