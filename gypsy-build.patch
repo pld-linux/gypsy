@@ -1,0 +1,12 @@
+diff -urN gypsy-0.9.orig/configure.ac gypsy-0.9/configure.ac
+--- gypsy-0.9.orig/configure.ac	2019-03-15 10:23:23.388466288 +0100
++++ gypsy-0.9/configure.ac	2019-03-15 10:23:30.098350030 +0100
+@@ -58,8 +58,6 @@
+ AS_AC_EXPAND(LIBEXECDIR, $libexecdir)
+ AS_AC_EXPAND(DAEMON_USER, $with_user)
+ 
+-CFLAGS="$CFLAGS -g -Wall -Werror"
+-
+ GTK_DOC_CHECK([1.6])
+ # TODO: add --with-xsltproc argument to override PATH
+ AC_CHECK_PROGS(XSLT, xsltproc)
