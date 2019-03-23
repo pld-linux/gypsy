@@ -4,17 +4,17 @@ Summary:	Gypsy - a GPS multiplexing daemon
 Summary(pl.UTF-8):	Gypsy - demon przełączający dostęp do GPS
 Name:		gypsy
 Version:	0.9
-Release:	7
+Release:	8
 License:	LGPL v2+ (library), GPL v2+ (daemon)
 Group:		Daemons
-Source0:	http://gypsy.freedesktop.org/releases/%{name}-%{version}.tar.gz
+Source0:	https://gypsy.freedesktop.org/releases/%{name}-%{version}.tar.gz
 # Source0-md5:	e2d186df9c2cc3b70a027043e22acf1a
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-0.8-unusedvar.patch
 Patch2:		%{name}-glib.patch
 Patch3:		%{name}-format-security.patch
 Patch4:		%{name}-build.patch
-URL:		http://gypsy.freedesktop.org/
+URL:		https://gypsy.freedesktop.org/
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	bluez-libs-devel
@@ -112,8 +112,12 @@ Dokumentacja programisty do gypsy.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgypsy.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -137,7 +141,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgypsy.so
-%{_libdir}/libgypsy.la
 %{_includedir}/gypsy
 %{_pkgconfigdir}/gypsy.pc
 
